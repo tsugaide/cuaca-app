@@ -228,7 +228,7 @@ export default {
         const forecastData = await forecast.json();
         this.dataPrakiraan = forecastData.forecast.forecastday;
 
-        const iconResponse = await fetch("./data/weather_conditions.json");
+        const iconResponse = await fetch("/src/data/weatherConditions.json");
         const iconData = await iconResponse.json();
 
         this.dataIcon = iconData;
