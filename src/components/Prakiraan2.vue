@@ -7,7 +7,7 @@
       <h1 class="text-xs -mt-1">{{ date }}, {{ monthNames[month] }}</h1>
     </div>
     <div>
-      <img :src="`@/assets/${icon}`" alt="" class="w-32" />
+      <img :src="img" alt="" class="w-32" />
       <h1 class="text-white text-center text-xl mt-1">{{ cuaca }}</h1>
     </div>
     <div>
@@ -45,6 +45,7 @@ export default {
         10: "November",
         11: "Desember",
       },
+      img: require(`@/assets/${this.icon}`),
     };
   },
   props: {
