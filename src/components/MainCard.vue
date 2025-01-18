@@ -5,7 +5,7 @@
     <div class="absolute bg-[#FFC107] top-1 left-3 px-3 rounded-xl">
       <h1 class="text-sm">Today</h1>
     </div>
-    <img :src="`/image/${wheaterData.icon}`" alt="" class="px-2" />
+    <img :src="`/src/assets/${wheaterData.icon}`" alt="" class="px-2" />
     <h1 class="text-5xl text-white font-bold text-center mt-1">
       {{ wheaterData.suhu }}℃
     </h1>
