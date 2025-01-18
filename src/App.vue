@@ -228,7 +228,7 @@ export default {
         const forecastData = await forecast.json();
         this.dataPrakiraan = forecastData.forecast.forecastday;
 
-        const iconResponse = await fetch("/src/data/weather_conditions.json");
+        const iconResponse = await fetch("./data/weather_conditions.json");
         const iconData = await iconResponse.json();
 
         this.dataIcon = iconData;
@@ -248,7 +248,7 @@ export default {
       const dataIc = this.dataIcon.find(
         (icon) => icon.code === this.data.current?.condition?.code
       );
-      return dataIc || {};
+      return dataIc;
     },
   },
 };
