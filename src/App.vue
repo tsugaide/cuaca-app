@@ -13,19 +13,24 @@
   </h1>
   <city-card
     :data="{
-      dt: data.location.localtime_epoch,
-      name: loading ? 'Mencari wilayah' : `${dataLokasi[0]}, ${dataLokasi[1]}`,
+      dt: new Date(),
+      name: loading
+        ? 'Mencari wilayah'
+        : dataLokasi.length > 1
+        ? `${dataLokasi[0]}, ${dataLokasi[1]}`
+        : `${dataLokasi[0]}`,
     }"
   ></city-card>
   <div class="md:flex md:gap-40">
-    <div class="">
+    <div>
       <main-card
+        v-if="data.current"
         :wheater-data="{
-          suhu: Math.floor(data.current.temp_c),
+          suhu: Math.floor(data.current.temp_c || 0),
           cuaca: currentIcon.main,
           icon: currentIcon.icon,
-          suhuMin: Math.floor(data.forecast.forecastday[0].day.mintemp_c),
-          suhuMax: Math.floor(data.forecast.forecastday[0].day.maxtemp_c),
+          suhuMin: Math.floor(data.forecast?.forecastday[0]?.day?.mintemp_c),
+          suhuMax: Math.floor(data.forecast?.forecastday[0]?.day?.maxtemp_c),
         }"
       ></main-card>
     </div>
@@ -34,58 +39,70 @@
       <div class="flex flex-wrap justify-around gap-2 mt-3">
         <des-card
           title="Terasa sepeti"
-          :desc="`${Math.floor(data.current.feelslike_c)}℃`"
+          :desc="`${Math.floor(data.current?.feelslike_c)}℃`"
           image="thermometer.svg"
         ></des-card>
         <des-card
           title="Kecepatan angin"
-          :desc="`${Math.floor(data.current.wind_kph)}km/j`"
+          :desc="`${Math.floor(data.current?.wind_kph)}km/j`"
           image="waves.svg"
         ></des-card>
         <des-card
           title="Arah angin"
-          :desc="windDirectionTranslation[data.current.wind_dir]"
+          :desc="windDirectionTranslation[data.current?.wind_dir]"
           image="waves.svg"
         ></des-card>
-        <des-card title="UV" :desc="data.current.uv" image="sun.svg"></des-card>
+        <des-card
+          title="UV"
+          :desc="`${data.current?.uv}`"
+          image="sun.svg"
+        ></des-card>
         <des-card
           title="Curah hujan"
-          :desc="`${Math.floor(data.current.precip_mm)}mm`"
+          :desc="`${Math.floor(data.current?.precip_mm)}mm`"
           image="cloud-rain.svg"
         ></des-card>
         <des-card
           title="Kelembapan"
-          :desc="`${data.current.humidity}%`"
+          :desc="`${data.current?.humidity}%`"
           image="drop.svg"
         ></des-card>
         <des-card
           title="Jarak pandang"
-          :desc="`${data.current.vis_km}km`"
+          :desc="`${data.current?.vis_km}km`"
           image="binoculars.svg"
         ></des-card>
         <des-card
           title="Tekanan udara"
-          :desc="`${data.current.pressure_mb}hPa`"
+          :desc="`${data.current?.pressure_mb}hPa`"
           image="bx-vertical-bottom.svg"
         ></des-card>
-        <air-polution :aqi="dataAir.list[0].main.aqi"></air-polution>
+        <air-polution
+          v-if="dataAir.list && dataAir.list.length > 0"
+          :aqi="dataAir.list[0].main.aqi"
+        ></air-polution>
       </div>
     </div>
   </div>
   <div class="md:flex md:items-center md:gap-8 md:px-4 md:-mt-8">
     <div class="md:w-[27rem]">
-      <prakiraan1 :hour="data.forecast.forecastday[0].hour"></prakiraan1>
+      <prakiraan1
+        v-if="data.forecast"
+        :hour="data.forecast.forecastday[0]?.hour"
+      ></prakiraan1>
     </div>
     <div class="flex justify-center gap-12 mt-12 md:mt-6">
-      <sunrise :sunrise="dataOpen.sys.sunrise"></sunrise>
-      <sunset :sunset="dataOpen.sys.sunset"></sunset>
+      <sunrise v-if="dataOpen.sys" :sunrise="dataOpen.sys.sunrise"></sunrise>
+      <sunset v-if="dataOpen.sys" :sunset="dataOpen.sys.sunset"></sunset>
     </div>
   </div>
   <div class="mt-8 mb-5 md:mt-2">
     <h1 class="text-white text-lg font-semibold ml-5">Prairaan cuaca harian</h1>
     <div class="mt-3 flex gap-3 px-5 overflow-x-scroll w-full">
       <prakiraan2
-        v-for="(item, index) in dataPrakiraan.slice(1)"
+        v-for="(item, index) in Array.isArray(dataPrakiraan)
+          ? dataPrakiraan.slice(1)
+          : []"
         :key="index"
         :day="new Date(item.date_epoch * 1000).getDay()"
         :date="new Date(item.date_epoch * 1000).getDate()"
@@ -94,10 +111,10 @@
         :suhuMin="Math.floor(item.day.mintemp_c)"
         :suhuMax="Math.floor(item.day.maxtemp_c)"
         :cuaca="
-          this.dataIcon.find((i) => i.code == item.day.condition.code).main
+          this.dataIcon.find((i) => i.code == item.day.condition.code)?.main
         "
         :icon="
-          this.dataIcon.find((i) => i.code == item.day.condition.code).icon
+          this.dataIcon.find((i) => i.code == item.day.condition.code)?.icon
         "
       ></prakiraan2>
     </div>
@@ -121,8 +138,8 @@ export default {
       data: {},
       dataAir: {},
       dataOpen: {},
-      dataPrakiraan: {},
-      dataIcon: {},
+      dataPrakiraan: [],
+      dataIcon: [],
       dataLokasi: [],
       notFound: false,
       lat: "",
@@ -174,7 +191,7 @@ export default {
         );
 
         const lokData = await lokasi.json();
-        if (lokData.length == 0) {
+        if (lokData.length === 0) {
           this.notFound = true;
           this.loading = false;
           return;
@@ -228,9 +245,10 @@ export default {
   },
   computed: {
     currentIcon() {
-      return this.dataIcon.find(
-        (icon) => icon.code == this.data.current.condition.code
+      const dataIc = this.dataIcon.find(
+        (icon) => icon.code === this.data.current?.condition?.code
       );
+      return dataIc || {};
     },
   },
 };

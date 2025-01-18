@@ -15,7 +15,7 @@ export default {
   computed: {
     formattedDate() {
       const options = { year: "numeric", month: "long", day: "numeric" };
-      return new Date(this.data.dt * 1000).toLocaleDateString("id-ID", options);
+      return this.data.dt.toLocaleDateString("id-ID", options);
     },
   },
 };

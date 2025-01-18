@@ -12,7 +12,7 @@
           v-for="(item, index) in hour.slice(date + 1, date + 6)"
           :key="index"
           :jam="`${new Date(item.time_epoch * 1000).getHours()}:00`"
-          :suhu="`${Math.floor(item.temp_c)}℃`"
+          :suhu="Math.floor(item.temp_c)"
           :icon="item.condition.icon"
         ></prakiraan1-item>
       </div>
