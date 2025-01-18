@@ -1010,10 +1010,6 @@ video {
     width: 27rem;
   }
 
-  .md\:flex-shrink-0 {
-    flex-shrink: 0;
-  }
-
   .md\:items-center {
     align-items: center;
   }

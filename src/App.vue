@@ -178,7 +178,7 @@ export default {
     Sunset,
     Prakiraan2,
   },
-  async created() {
+  async mounted() {
     await this.fetchData();
   },
   methods: {
@@ -215,7 +215,6 @@ export default {
 
         const weatherData = await wResponse.json();
         this.data = weatherData;
-        console.log(weatherData);
 
         const airPollutionResponse = await fetch(
           `https://api.openweathermap.org/data/2.5/air_pollution?lat=${this.lat}&lon=${this.lon}&appid=95d811178e330556c3f8e6ace2fdd634`
