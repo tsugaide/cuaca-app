@@ -7,7 +7,7 @@
       <h1 class="text-xs -mt-1">{{ date }}, {{ monthNames[month] }}</h1>
     </div>
     <div>
-      <img :src="`/src/assets/${icon}`" alt="" class="w-32" />
+      <img :src="require(`@/assets/${icon}`)" alt="" class="w-32" />
       <h1 class="text-white text-center text-xl mt-1">{{ cuaca }}</h1>
     </div>
     <div>
