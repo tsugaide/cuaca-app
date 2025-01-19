@@ -7,7 +7,7 @@
         alt=""
         class="absolute -z-40 h-28 brightness-75"
       />
-      <div class="flex gap-4">
+      <div class="flex gap-2 md:gap-4">
         <prakiraan1-item
           v-for="(item, index) in hour.slice(date + 1, date + 6)"
           :key="index"

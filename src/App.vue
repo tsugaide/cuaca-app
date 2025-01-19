@@ -97,7 +97,9 @@
     </div>
   </div>
   <div class="mt-8 mb-5 md:mt-2">
-    <h1 class="text-white text-lg font-semibold ml-5">Prairaan cuaca harian</h1>
+    <h1 class="text-white text-lg font-semibold ml-5">
+      Prakiraan cuaca harian
+    </h1>
     <div class="mt-3 flex gap-3 px-5 overflow-x-scroll w-full">
       <prakiraan2
         v-for="(item, index) in Array.isArray(dataPrakiraan)
