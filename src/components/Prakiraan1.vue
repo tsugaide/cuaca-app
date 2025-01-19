@@ -1,5 +1,5 @@
 <template>
-  <div class="px-4 mb-5">
+  <div class="px-1 md:px-4 mb-5">
     <h1 class="ml-4 text-white text-xl font-semibold">Prakiraan cuaca</h1>
     <div class="relative flex items-center justify-around mt-5">
       <img

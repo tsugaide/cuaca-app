@@ -34,7 +34,7 @@
         }"
       ></main-card>
     </div>
-    <div class="mt-5 mx-6">
+    <div class="mt-5 mx-3">
       <h1 class="ml-10 text-white font-semibold text-lg">Rincian Cuaca</h1>
       <div class="flex flex-wrap justify-around gap-2 mt-3">
         <des-card
