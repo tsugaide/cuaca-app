@@ -213,7 +213,7 @@ export default {
         this.dataOpen = locData;
 
         const wResponse = await fetch(
-          `https://api.weatherapi.com/v1/forecast.json?key=cacf3b4fe068425bb83104814240112&q=${this.lat},${this.lon}`
+          `https://api.weatherapi.com/v1/forecast.json?key=e8fabfe4b207420891f15128251901&q=${this.lat},${this.lon}`
         );
 
         const weatherData = await wResponse.json();
@@ -226,7 +226,7 @@ export default {
         this.dataAir = airPollutionData;
 
         const forecast = await fetch(
-          `https://api.weatherapi.com/v1/forecast.json?key=cacf3b4fe068425bb83104814240112&q=${this.lat},${this.lon}&days=8`
+          `https://api.weatherapi.com/v1/forecast.json?key=e8fabfe4b207420891f15128251901&q=${this.lat},${this.lon}&days=8`
         );
         const forecastData = await forecast.json();
         this.dataPrakiraan = forecastData.forecast.forecastday;
