@@ -21,7 +21,7 @@
           <h1 class="text-white">Saran:</h1>
           <ul class="">
             <li
-              class="leading-3 text-white text-xs mb-2 md:mb-4"
+              class="leading-3 text-white text-xs mb-1 md:mb-1"
               v-for="item in aqiData[aqi].advice"
             >
               {{ item }}

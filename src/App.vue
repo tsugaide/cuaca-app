@@ -131,6 +131,7 @@ import AirPolution from "./components/AirPolution.vue";
 import Sunrise from "./components/Sunrise.vue";
 import Sunset from "./components/Sunset.vue";
 import Prakiraan2 from "./components/Prakiraan2.vue";
+import weatherConditions from "./data/weatherConditions.json";
 
 export default {
   data() {
@@ -139,7 +140,7 @@ export default {
       dataAir: {},
       dataOpen: {},
       dataPrakiraan: [],
-      dataIcon: [],
+      dataIcon: weatherConditions,
       dataLokasi: [],
       notFound: false,
       lat: "",
@@ -178,7 +179,7 @@ export default {
     Sunset,
     Prakiraan2,
   },
-  async mounted() {
+  async created() {
     await this.fetchData();
   },
   methods: {
@@ -227,11 +228,6 @@ export default {
         );
         const forecastData = await forecast.json();
         this.dataPrakiraan = forecastData.forecast.forecastday;
-
-        const iconResponse = await fetch("/src/data/weatherConditions.json");
-        const iconData = await iconResponse.json();
-
-        this.dataIcon = iconData;
       } catch (error) {
         console.error("Error:", error);
       } finally {

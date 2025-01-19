@@ -3,9 +3,9 @@
     class="w-[176px] h-[207px] bg-[#55BD5B] relative mt-10 ml-8 rounded-xl pt-6"
   >
     <div class="absolute bg-[#FFC107] top-1 left-3 px-3 rounded-xl">
-      <h1 class="text-sm">Today</h1>
+      <h1 class="text-sm">Hari ini</h1>
     </div>
-    <img src="/src/assets/MainCloud.png" alt="" class="px-2" />
+    <img src="../assets/MainClear.png" alt="" class="px-2" />
     <h1 class="text-5xl text-white font-bold text-center mt-1">
       {{ wheaterData.suhu }}℃
     </h1>
@@ -22,11 +22,6 @@
 
 <script>
 export default {
-  data() {
-    return {
-      img: `/src/assets/${this.wheaterData.icon}`,
-    };
-  },
   props: {
     wheaterData: {
       type: Object,
